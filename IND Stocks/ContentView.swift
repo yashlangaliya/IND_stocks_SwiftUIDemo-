@@ -13,44 +13,23 @@ struct ContentView: View {
     @Query private var items: [Item]
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
+        ZStack {
+            VStack{
+                Text("Accent Color")
+                    .foregroundStyle(Color.theme.accentColor)
+                    .padding()
+                Text("Green Color")
+                    .foregroundStyle(Color.theme.greenColor)
+                    .padding()
+                Text("Red Color")
+                    .foregroundStyle(Color.theme.redColor)
+                    .padding()
+                Text("Secondary Text Color")
+                    .foregroundStyle(Color.theme.secondaryTextColor)
+                    .padding()
+                    
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
+            .background(Color.theme.backgroundColor)
         }
     }
 }

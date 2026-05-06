@@ -25,8 +25,18 @@ struct IND_StocksApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                HomeView()
+                    .navigationBarBackButtonHidden()
+            }
+            
         }
         .modelContainer(sharedModelContainer)
+    }
+}
+
+#Preview {
+    NavigationStack {
+        HomeView()
     }
 }
