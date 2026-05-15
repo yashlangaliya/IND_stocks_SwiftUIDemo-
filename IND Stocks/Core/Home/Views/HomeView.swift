@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @State var homeViewModel: HomeViewModel = .init()
     @State var showWishlist: Bool = false
     
     var body: some View {
@@ -20,6 +21,24 @@ struct HomeView: View {
                 //Header view
                 homeHeader
                 Spacer()
+                List{
+                    Section(header: Text("Top Gainers").listTitleStyle()){
+                        ForEach(homeViewModel.topGainers) { stock in
+                            StockRowView(stock: stock)
+                                .listRowSeparator(Visibility.hidden)
+                        }
+                    }
+                    
+                    Section(header: Text("Top Losers").listTitleStyle()){
+                        ForEach(homeViewModel.topLosers) { stock in
+                            StockRowView(stock: stock)
+                                .listRowSeparator(Visibility.hidden)
+                        }
+                    }
+                }
+                .scrollContentBackground(.hidden)
+                .listStyle(.automatic)
+                
             }
         }
     }
@@ -52,6 +71,7 @@ extension HomeView {
         .padding(.horizontal)
     }
 }
+
 
 #Preview {
     NavigationStack {
